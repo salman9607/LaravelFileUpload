@@ -35,12 +35,14 @@ class RegisteredUserController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
-
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
+
+//        $user->addMedia(storage_path('app/public/images/tmp' . $request->fileImage . '/' .'user_286_1607371610.jpg' ))
+//            ->toMediaCollection('images');
 
         if($request->hasFile('fileImage')) {
             $file_post = $request->file('fileImage');
@@ -48,7 +50,7 @@ class RegisteredUserController extends Controller
             $file_name = $file_post->getClientOriginalName();
 
              $user->addMediaFromRequest('fileImage')->toMediaCollection('images');
-//            $user->addMedia(storage_path('app/public/images/tmp' . $request->file . '/' .$filename ))
+//            $user->addMedia(storage_path('app/public/images/tmp' . $request->fileImage . '/' .$file_name ))
 //            ->toMediaCollection('images');
 
             // $file_post->storeAs('file', $file_name .'.'.$file_extension);

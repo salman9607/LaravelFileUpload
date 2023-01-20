@@ -49,9 +49,11 @@ class User extends Authenticatable implements HasMedia
     public function registerMediaConversions(Media $media = null): void
     {
         $this->addMediaConversion('thumb-50')
+                ->performOnCollections('images')
               ->width(50)
               ->height(50);
         $this->addMediaConversion('thumb-100')
+            ->performOnCollections('images')
               ->width(100)
               ->height(100);
     }
